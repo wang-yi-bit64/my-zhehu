@@ -7,9 +7,11 @@
   </div>
 </template>
 <script lang='ts'>
+
 import useClickOutside from '../hooks/useClickOutside'
-// import { defineComponent, ref, ,onMounted, onUnmounted } from 'vue'
-import { defineComponent, ref, watch } from 'vue'
+import mitt from 'mitt'
+import { defineComponent, ref, watch, onUnmounted } from 'vue'
+export const emitter = mitt()
 export default defineComponent({
   name: 'Dropdown',
   props: {
@@ -18,26 +20,30 @@ export default defineComponent({
       isrequired: true
     }
   },
-  setup () {
+  emits: ['item-clicked'],
+  setup (props, context) {
     const dropdownRef = ref<null | HTMLElement>(null)
     const isOpen = ref(false)
     const toggleOpen = () => {
       isOpen.value = !isOpen.value
     }
+    const dropDownItemClicked = (e: any) => {
+      if (e.props.closeAfterClick) {
+        isOpen.value = false
+      }
+      context.emit('item-clicked', e)
+    }
+    emitter.on('dropdown-item-clicked', dropDownItemClicked)
+    onUnmounted(() => {
+      emitter.off('dropdown-item-clicked', dropDownItemClicked)
+    })
+
     const isClickOutside = useClickOutside(dropdownRef)
     watch(isClickOutside, () => {
       if (isOpen.value && isClickOutside.value) {
         isOpen.value = false
       }
     })
-    // const handler = (e: MouseEvent) => {
-    //   if (dropdownRef.value) {
-    //     console.log(dropdownRef.value)
-    //     if (!dropdownRef.value.contains(e.target as HTMLElement) && isOpen.value) {
-    //       isOpen.value = false
-    //     }
-    //   }
-    // }
     return {
       isOpen,
       toggleOpen,
