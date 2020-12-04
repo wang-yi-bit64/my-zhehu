@@ -77,14 +77,14 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
-    const emaidVal = ref('testking')
+    const emaidVal = ref('123')
 
     const emailRules:RulesProps = [
       { type: 'required', message: '电子邮箱不能为空' },
       { type: 'email', message: '请输入正确电子邮箱格式' }
     ]
 
-    const passwordVal = ref('')
+    const passwordVal = ref('12313')
     const passwordRules:RulesProps = [
       { type: 'required', message: '密码不能为空' }
     ]
