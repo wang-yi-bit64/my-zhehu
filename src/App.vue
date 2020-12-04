@@ -6,16 +6,34 @@
       v-if="0"
       :list="list"
     />
-    <ValidateForm />
+    <ValidateForm>
+      <div class="mb-3">
+        <ValidateInput
+          :rules="emailRules"
+          v-model="emaidVal"
+          placeholder="请输入邮箱"
+          type="text"
+        />
+      </div>
+      <div class="mb-3">
+        <ValidateInput
+          :rules="passwordRules"
+          v-model="passwordVal"
+          placeholder="请输入密码"
+          type="password"
+        />
+      </div>
+    </ValidateForm>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import "bootstrap/dist/css/bootstrap.min.css";
 import GlobalHeader, { UserProps } from "./components/GlobalHeader.vue";
 import ColumnList, { ColumnProps } from "./components/ColumnList.vue";
 import ValidateForm from "./components/ValidateForm.vue";
+import ValidateInput, { RulesProps } from './components/ValidateInput.vue'
 const testData: ColumnProps[] = [
   {
     id: 1,
@@ -55,12 +73,28 @@ export default defineComponent({
   components: {
     ColumnList,
     GlobalHeader,
-    ValidateForm
+    ValidateForm,
+    ValidateInput
   },
   setup () {
+    const emaidVal = ref('testking')
+
+    const emailRules:RulesProps = [
+      { type: 'required', message: '电子邮箱不能为空' },
+      { type: 'email', message: '请输入正确电子邮箱格式' }
+    ]
+
+    const passwordVal = ref('')
+    const passwordRules:RulesProps = [
+      { type: 'required', message: '密码不能为空' }
+    ]
     return {
       list: testData,
-      currentUser
+      currentUser,
+      emaidVal,
+      emailRules,
+      passwordVal,
+      passwordRules
     };
   }
 });
