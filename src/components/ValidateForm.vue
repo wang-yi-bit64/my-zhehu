@@ -1,43 +1,24 @@
 
 <template>
   <div class="validate-from">
-    <div class="mb-3">
-      <ValidateInput
-        :rules="emailRules"
-        v-model="emaidVal"
-      />
-    </div>
     {{ emaidVal }}
+    {{ passwordVal }}
     <form>
       <div class="mb-3">
-        <label
-          for="exampleInputEmail1"
-          class="form-label"
-        >邮箱地址</label>
-        <input
-          type="email"
-          class="form-control"
-          v-model="emailRef.val"
-          id="exampleInputEmail1"
-          @blur="valiadteEmail"
-        >
-        <div
-          class="form-text"
-          v-if="emailRef.error"
-        >
-          {{ emailRef.message }}
-        </div>
+        <ValidateInput
+          :rules="emailRules"
+          v-model="emaidVal"
+          placeholder="请输入邮箱"
+          type="text"
+        />
       </div>
       <div class="mb-3">
-        <label
-          for="exampleInputPassword1"
-          class="form-label"
-        >密码</label>
-        <input
+        <ValidateInput
+          :rules="passwordRules"
+          v-model="passwordVal"
+          placeholder="请输入密码"
           type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-        >
+        />
       </div>
     </form>
   </div>
@@ -57,12 +38,16 @@ export default defineComponent({
       { type: 'email', message: '请输入正确电子邮箱格式' }
     ]
     const emaidVal = ref('testking')
-
     const emailRef = reactive({
       val: "",
       error: false,
       message: ""
     });
+
+    const passwordVal = ref('')
+    const passwordRules:RulesProps = [
+      { type: 'required', message: '密码不能为空' }
+    ]
     const valiadteEmail = () => {
       console.log(emailRef.val)
       if (emailRef.val.trim() === '') {
@@ -78,7 +63,9 @@ export default defineComponent({
       valiadteEmail,
       emailRef,
       emailRules,
-      emaidVal
+      emaidVal,
+      passwordVal,
+      passwordRules
     };
   }
 });

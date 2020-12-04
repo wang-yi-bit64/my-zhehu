@@ -1,8 +1,8 @@
 <template>
   <div class="validate-input-container pb-3">
     <input
-      type="text"
       class="form-control"
+      v-bind="$attrs"
       :class="{'is-invalid':inputRef.error}"
       :value="inputRef.val"
       @input="updateValue"
@@ -33,7 +33,10 @@ export default defineComponent({
     rules: Array as PropType<RulesProps>,
     modelValue: String
   },
+  inheritAttrs: false,
   setup (props, context) {
+    console.log(context.attrs);
+
     const inputRef = reactive({
       val: props.modelValue || '',
       error: false,
