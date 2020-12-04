@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-04 11:26:29
- * @LastEditTime: 2020-12-04 16:19:13
+ * @LastEditTime: 2020-12-04 17:04:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ValidateForm.vue
@@ -31,10 +31,10 @@ export default defineComponent({
   emits: ["form-submit"],
   setup(props, context) {
     let funcArr: ValidateFunc[] = [];
-
     const submitForm = () => {
-      console.log("submitForm");
-      const result = funcArr.map((func) => func());
+      console.log("submitForm", funcArr);
+      const result = funcArr.map((func) => func()).every((result) => result);
+      console.log("submitForm", funcArr);
       context.emit("form-submit", result);
     };
     const callback = (func?: ValidateFunc) => {
