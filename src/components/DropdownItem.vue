@@ -1,6 +1,18 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-11-24 15:27:26
+ * @LastEditTime: 2020-12-04 13:52:30
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \my-zhehu\src\components\DropdownItem.vue
+-->
 <template>
-  <li class="dropdown-option" @click="handleItemClick" :class="{'is-disabled':disabled}">
-    <slot></slot>
+  <li
+    class="dropdown-option"
+    @click="handleItemClick"
+    :class="{'is-disabled':disabled}"
+  >
+    <slot />
   </li>
 </template>
 <script lang='ts'>
