@@ -1,3 +1,4 @@
+
 <template >
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
     <a href="#" class="navbar-brand">测试</a>
@@ -56,6 +57,3 @@ export default defineComponent({
 
 })
 </script>
-<style lang="stylus">
-
-</style>

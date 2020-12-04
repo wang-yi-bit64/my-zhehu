@@ -1,3 +1,4 @@
+
 <template>
   <div class="row">
     <div v-for="column in columnList" :key="column.id" class="col-4 mb-4">
@@ -47,8 +48,9 @@ export default defineComponent({
 })
 </script>
 
-<style lang="stylus">
-.card_avatar
-  width 100px
-  height 100px
+<style lang="css">
+  .card_avatar {
+    width:100px;
+    height:100px;
+  }
 </style>
