@@ -2,8 +2,12 @@
 <template>
   <div class="validate-from">
     <div class="mb-3">
-      <ValidateInput :rules="emailRules" />
+      <ValidateInput
+        :rules="emailRules"
+        v-model="emaidVal"
+      />
     </div>
+    {{ emaidVal }}
     <form>
       <div class="mb-3">
         <label
@@ -39,7 +43,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import ValidateInput, { RulesProps } from './ValidateInput.vue'
 const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default defineComponent({
@@ -52,6 +56,7 @@ export default defineComponent({
       { type: 'required', message: '电子邮箱不能为空' },
       { type: 'email', message: '请输入正确电子邮箱格式' }
     ]
+    const emaidVal = ref('testking')
 
     const emailRef = reactive({
       val: "",
@@ -72,7 +77,8 @@ export default defineComponent({
     return {
       valiadteEmail,
       emailRef,
-      emailRules
+      emailRules,
+      emaidVal
     };
   }
 });
