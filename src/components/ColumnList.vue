@@ -11,9 +11,7 @@
           />
           <h5 class="card-title">{{ column.title }}</h5>
           <p class="card-text text-left">{{ column.decription }}</p>
-          <a href="#" class="btn btn-outline-primary stretched-link"
-            >进入专栏</a
-          >
+          <a href="#" class="btn btn-outline-primary stretched-link">进入专栏</a>
         </div>
       </div>
     </div>
