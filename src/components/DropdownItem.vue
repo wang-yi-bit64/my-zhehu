@@ -10,40 +10,40 @@
   <li
     class="dropdown-option"
     @click="handleItemClick"
-    :class="{'is-disabled':disabled}"
+    :class="{ 'is-disabled': disabled }"
   >
     <slot />
   </li>
 </template>
-<script lang='ts'>
-import { defineComponent } from 'vue'
-import { emitter } from './Dropdown.vue'
+<script lang="ts">
+import { defineComponent } from "vue";
+import { emitter } from "./Dropdown.vue";
 export default defineComponent({
-  name: '',
+  name: "",
   props: {
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     closeAfterClick: {
       type: Boolean,
-      defalut: false
-    }
+      defalut: false,
+    },
   },
-  setup (props) {
+  setup(props) {
     const handleItemClick = (e: MouseEvent) => {
-      emitter.emit('dropdown-item-clicked', { e, props })
-    }
+      emitter.emit("dropdown-item-clicked", { e, props });
+    };
     return {
-      handleItemClick
-    }
-  }
-})
+      handleItemClick,
+    };
+  },
+});
 </script>
 <style>
 .dropdown-option.is-disabled * {
   color: #6c757d;
   pointer-events: none;
-  background-color:transparent ;
+  background-color: transparent;
 }
 </style>

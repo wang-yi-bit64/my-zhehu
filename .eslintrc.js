@@ -1,39 +1,20 @@
-/*
- * @Author: your name
- * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-04 11:33:30
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \my-zhehu\.eslintrc.js
- */
 module.exports = {
   root: true,
-
   env: {
-    node: true
+    node: true,
   },
-
   extends: [
-    'plugin:vue/vue3-essential',
-    '@vue/standard',
-    '@vue/typescript/recommended'
+    "plugin:vue/strongly-recommended",
+    "@vue/standard",
+    "@vue/typescript/recommended",
+    "@vue/prettier",
+    "@vue/prettier/@typescript-eslint",
   ],
-
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2020,
   },
-
   rules: {
-    'no-console': 'off',
-    'no-debugger': 'off',
-    semi:'off',
-    quotes:'off'
-
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
   },
-
-  'extends': [
-    'plugin:vue/strongly-recommended',
-    '@vue/standard',
-    '@vue/typescript/recommended'
-  ]
-}
+};
