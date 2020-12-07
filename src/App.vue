@@ -1,13 +1,5 @@
-<!--
- * @Author: your name
- * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-07 11:06:41
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \my-zhehu\src\App.vue
--->
 <template>
-  <div class="container-fluid px-0 flex-shrink-0">
+  <div class="container">
     <global-header :user="currentUser" />
     <router-view></router-view>
     <GlobalFooter />

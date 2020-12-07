@@ -1,12 +1,20 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-11-24 15:27:26
+ * @LastEditTime: 2020-12-07 11:21:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \my-zhehu\src\components\GlobalHeader.vue
+-->
 <template>
   <nav class="navbar navbar-dark bg-primary justify-content-between mb-4 px-4">
-    <a href="#" class="navbar-brand">测试</a>
+    <router-link to="/" class="navbar-brand">者也专栏</router-link>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item">
-        <a href="#" class="btn btn-outline-light my-2">登录</a>
+        <router-link to="/login" class="btn btn-outline-light my-2">登录</router-link>
       </li>
       <li class="list-inline-item">
-        <a href="#" class="btn btn-outline-light my-2">注册</a>
+        <router-link href="/login" class="btn btn-outline-light my-2">注册</router-link>
       </li>
     </ul>
     <ul v-else class="list-inline mb-0">
