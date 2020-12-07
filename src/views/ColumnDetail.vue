@@ -14,8 +14,11 @@
 </template>
 <script lang="ts">
 import { useRoute } from "vue-router";
-import { defineComponent } from "vue";
-import { testPosts, testData } from "@/mock/testData";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+import { GlobalDataProps } from "@/store";
+
+// import { testPosts, testData } from "@/mock/testData";
 
 import PostList from "@/components/PostList.vue";
 
@@ -27,12 +30,21 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const currentId = +route.params.id;
-    const column = testData.find((c) => c.id === currentId);
-    const list = testPosts.filter((post) => post.columnId === currentId);
+    const store = useStore<GlobalDataProps>();
+    const testPosts1 = computed(() => {
+      const list = store.getters.getCurrentPostc(currentId);
+      console.log(list);
+      return list;
+    });
+    console.log("testPosts1", testPosts1);
+    const testData = computed(() => store.getters.getCurrentColumn(currentId));
+    console.log("testData", testData.value);
+
+    // const column = testData.filter((c) => c.id === currentId);
+    // const list = testPosts.filter((post) => post.columnId === currentId);
     return {
-      route,
-      column,
-      list,
+      column: [],
+      list: [],
     };
   },
 });

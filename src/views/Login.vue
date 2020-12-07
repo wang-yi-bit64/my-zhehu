@@ -12,7 +12,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-
+import { useStore } from "vuex";
+import { GlobalDataProps } from "@/store";
 import { useRouter } from "vue-router";
 
 import ValidateForm from "@/components/ValidateForm.vue";
@@ -25,6 +26,7 @@ export default defineComponent({
     ValidateInput,
   },
   setup() {
+    const store = useStore<GlobalDataProps>();
     const router = useRouter();
     const emaidVal = ref("123");
     const emailRules: RulesProps = [
@@ -37,12 +39,8 @@ export default defineComponent({
     const onFormSubmit = (result: boolean) => {
       console.log("result", result);
       if (result) {
-        router.push({
-          name: "column",
-          params: {
-            id: 1,
-          },
-        });
+        store.commit("login");
+        router.push("/");
       }
     };
     return {
