@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 10:51:24
- * @LastEditTime: 2020-12-07 11:42:18
+ * @LastEditTime: 2020-12-07 13:41:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\Home.vue
@@ -22,21 +22,11 @@
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
     <button class="btn btn-outline-primary mt-2 mb-5 mx-auto btn-block w-25">加载更多</button>
-    <ValidateForm @form-submit="onFormSubmit" v-if="0">
-      <div class="mb-3">
-        <ValidateInput :rules="emailRules" v-model="emaidVal" placeholder="请输入邮箱" type="text" />
-      </div>
-      <div class="mb-3">
-        <ValidateInput :rules="passwordRules" v-model="passwordVal" placeholder="请输入密码" type="password" />
-      </div>
-    </ValidateForm>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
-import ValidateForm from "@/components/ValidateForm.vue";
-import ValidateInput, { RulesProps } from "@/components/ValidateInput.vue";
 
 const testData: ColumnProps[] = [
   {
@@ -68,29 +58,10 @@ export default defineComponent({
   name: "Home",
   components: {
     ColumnList,
-    ValidateForm,
-    ValidateInput,
   },
   setup() {
-    const emaidVal = ref("123");
-    const emailRules: RulesProps = [
-      { type: "required", message: "电子邮箱不能为空" },
-      { type: "email", message: "请输入正确电子邮箱格式" },
-    ];
-    const passwordVal = ref("");
-    const passwordRules: RulesProps = [{ type: "required", message: "密码不能为空" }];
-
-    const onFormSubmit = (result: boolean) => {
-      console.log("result", result);
-    };
-
     return {
       list: testData,
-      emaidVal,
-      emailRules,
-      passwordVal,
-      passwordRules,
-      onFormSubmit,
     };
   },
 });

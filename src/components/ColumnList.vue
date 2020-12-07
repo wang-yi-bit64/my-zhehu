@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-11-24 15:27:26
+ * @LastEditTime: 2020-12-07 13:39:08
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \my-zhehu\src\components\ColumnList.vue
+-->
 <template>
   <div class="row">
     <div v-for="column in columnList" :key="column.id" class="col-4 mb-4">
@@ -11,7 +19,11 @@
           />
           <h5 class="card-title">{{ column.title }}</h5>
           <p class="card-text text-left">{{ column.decription }}</p>
-          <a href="#" class="btn btn-outline-primary stretched-link">进入专栏</a>
+          <router-link
+            :to="{ name: 'column', params: { id: column.id } }"
+            class="btn btn-outline-primary stretched-link"
+            >进入专栏</router-link
+          >
         </div>
       </div>
     </div>
