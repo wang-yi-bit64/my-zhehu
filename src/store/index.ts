@@ -12,6 +12,7 @@ export interface GlobalDataProps {
   posts: PostProps[];
   user: UserProps;
 }
+console.log('testPosts',testPosts);
 
 
 export const Store = createStore<GlobalDataProps>({
@@ -40,7 +41,8 @@ export const Store = createStore<GlobalDataProps>({
       return state.columns.find(column => column.id === id)
     },
     getCurrentPostc:state => (id:number) => {
-      console.log(state.posts);
+      console.log('函数执行');
+      console.log('state',state.posts);
       return state.posts.filter(postc => postc.columnId === id)
     },
     user:state=> state.user,

@@ -32,9 +32,10 @@ export default defineComponent({
     const currentId = +route.params.id;
     const store = useStore<GlobalDataProps>();
     const testPosts1 = computed(() => {
+      console.log(store.getters);
       const list = store.getters.getCurrentPostc(currentId);
       console.log(list);
-      return list;
+      return store.getters;
     });
     console.log("testPosts1", testPosts1);
     const testData = computed(() => store.getters.getCurrentColumn(currentId));
