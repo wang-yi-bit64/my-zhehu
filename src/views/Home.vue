@@ -1,11 +1,3 @@
-<!--
- * @Author: your name
- * @Date: 2020-12-07 10:51:24
- * @LastEditTime: 2020-12-07 13:41:58
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \my-zhehu\src\views\Home.vue
--->
 <template>
   <div class="home-page">
     <section class="py-5 text-center container">
@@ -26,34 +18,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import ColumnList, { ColumnProps } from "@/components/ColumnList.vue";
-
-const testData: ColumnProps[] = [
-  {
-    id: 1,
-    title: "test1的专栏",
-    decription: "这是test1的专栏",
-    avatar: "http://n.sinaimg.cn/photo/crawl/300/w550h550/20200921/282e-izmihnt8087611.jpg",
-  },
-  {
-    id: 2,
-    title: "test2的专栏",
-    decription: "这是test2的专栏",
-    avatar: "http://n.sinaimg.cn/photo/crawl/300/w550h550/20200921/282e-izmihnt8087611.jpg",
-  },
-  {
-    id: 3,
-    title: "test3的专栏",
-    decription: "这是test3的专栏",
-    avatar: "http://n.sinaimg.cn/photo/crawl/300/w550h550/20200921/282e-izmihnt8087611.jpg",
-  },
-  {
-    id: 4,
-    title: "test1的专栏",
-    decription: "这是test1的专栏",
-  },
-];
-
+import ColumnList from "@/components/ColumnList.vue";
+import { testData } from "@/mock/testData";
 export default defineComponent({
   name: "Home",
   components: {

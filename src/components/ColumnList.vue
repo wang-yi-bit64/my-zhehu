@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-07 13:39:08
+ * @LastEditTime: 2020-12-07 16:22:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ColumnList.vue
@@ -18,7 +18,7 @@
             srcset=""
           />
           <h5 class="card-title">{{ column.title }}</h5>
-          <p class="card-text text-left">{{ column.decription }}</p>
+          <p class="card-text text-left">{{ column.description }}</p>
           <router-link
             :to="{ name: 'column', params: { id: column.id } }"
             class="btn btn-outline-primary stretched-link"
@@ -32,12 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from "vue";
-export interface ColumnProps {
-  id: number;
-  title: string;
-  avatar?: string;
-  decription: string;
-}
+import { ColumnProps } from "@/mock/testData";
 
 export default defineComponent({
   name: "ColumnList",
