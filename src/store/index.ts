@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 16:29:19
- * @LastEditTime: 2020-12-08 13:36:53
+ * @LastEditTime: 2020-12-08 14:18:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\store\index.ts
@@ -42,7 +42,7 @@ export interface GlobalDataProps {
   user: UserProps;
 }
 
-export const Store = createStore<GlobalDataProps>({
+const Store = createStore<GlobalDataProps>({
   state: {
     columns:testData,
     posts: testPosts,
@@ -88,3 +88,4 @@ export const Store = createStore<GlobalDataProps>({
   modules:{
   }
 })
+export default Store
