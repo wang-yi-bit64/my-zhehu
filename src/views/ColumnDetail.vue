@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 11:47:54
- * @LastEditTime: 2020-12-08 09:40:48
+ * @LastEditTime: 2020-12-08 13:55:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\ColumnDetail.vue
@@ -10,7 +10,7 @@
   <div class="column-detil-page w-75 mx-auto">
     <div class="column-info row mb-4 border-bottom pb-4 aligin-items-center">
       <div class="col-3 text-center">
-        <img :src="column.avatar" :alt="column.title" class="rounded-circle" />
+        <img :src="column.avatar" v-if="column.avatar" :alt="column.title" class="rounded-circle w-100" />
       </div>
       <div class="col-9">
         <h4>{{ column.title }}</h4>
@@ -26,8 +26,6 @@ import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "@/store";
 
-// import { testPosts, testData } from "@/mock/testData";
-
 import PostList from "@/components/PostList.vue";
 
 export default defineComponent({
@@ -40,9 +38,7 @@ export default defineComponent({
     const currentId = +route.params.id;
     const store = useStore<GlobalDataProps>();
     const testData = computed(() => store.getters.getCurrentColumn(currentId));
-    console.log("testData", testData);
     const testPosts = computed(() => store.getters.getCurrentPostc(currentId));
-    console.log("testPosts", testPosts);
     return {
       column: testData,
       list: testPosts,
@@ -50,9 +46,3 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-.column-info img {
-  width: 120px;
-  heig: 120px;
-}
-</style>
