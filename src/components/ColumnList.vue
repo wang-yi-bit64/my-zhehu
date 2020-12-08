@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-07 16:22:54
+ * @LastEditTime: 2020-12-08 13:40:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ColumnList.vue
@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from "vue";
-import { ColumnProps } from "@/mock/testData";
+import { ColumnProps } from "@/store";
 
 export default defineComponent({
   name: "ColumnList",
