@@ -1,28 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 14:02:52
- * @LastEditTime: 2020-12-07 16:25:49
+ * @LastEditTime: 2020-12-08 13:36:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\mock\testData.ts
  */
 
-export interface ColumnProps {
-  id: number;
-  title: string;
-  avatar?: string;
-  description: string;
-  // posts: PostProps[];
-}
-
-export interface PostProps {
-  id: number;
-  title: string;
-  content: string;
-  image?: string;
-  createdAt: string;
-  columnId: number;
-}
+import {ColumnProps, PostProps} from '@/store'
 
 export const testData:ColumnProps[] = [
   {
