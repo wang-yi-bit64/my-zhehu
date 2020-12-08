@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 11:09:03
- * @LastEditTime: 2020-12-08 14:19:02
+ * @LastEditTime: 2020-12-08 17:09:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\routes\index.ts
@@ -35,14 +35,19 @@ const router = createRouter({
     {
       path:'/createpost',
       name:'createpost',
-      component:CreatePost
+      component:CreatePost,
+      meta: {
+        requiredLogin:true
+      }
     }
   ]
 })
 
 router.beforeEach((to, from , next) => {
-  if(to.name !== 'login' && !Store.state.user.isLogin) {
+  if(to.meta.requiredLogin && !Store.state.user.isLogin) {
     next({name:'login'})
+  } else if (to.meta.requiredLogin && Store.state.user.isLogin) {
+    next('/')
   } else {
     next()
   }
