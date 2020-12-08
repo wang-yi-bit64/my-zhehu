@@ -1,6 +1,24 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-12-04 11:21:04
+ * @LastEditTime: 2020-12-08 11:28:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \my-zhehu\src\components\ValidateInput.vue
+-->
 <template>
   <div class="validate-input-container pb-3">
     <input
+      v-if="tag !== 'textarea'"
+      class="form-control"
+      v-bind="$attrs"
+      :class="{ 'is-invalid': inputRef.error }"
+      :value="inputRef.val"
+      @input="updateValue"
+      @blur="validInput"
+    />
+    <textarea
+      v-else
       class="form-control"
       v-bind="$attrs"
       :class="{ 'is-invalid': inputRef.error }"
@@ -24,6 +42,7 @@ interface RuleProp {
   type: "required" | "email";
   message: string;
 }
+export type TagType = "input" | "textarea";
 
 export type RulesProps = RuleProp[];
 
@@ -32,6 +51,10 @@ export default defineComponent({
   props: {
     rules: Array as PropType<RulesProps>,
     modelValue: String,
+    tag: {
+      type: String as PropType<TagType>,
+      default: "input",
+    },
   },
   inheritAttrs: false,
   setup(props, context) {
