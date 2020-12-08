@@ -1,3 +1,12 @@
+/*
+ * @Author: your name
+ * @Date: 2020-12-07 16:29:19
+ * @LastEditTime: 2020-12-08 09:38:57
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \my-zhehu\src\store\index.ts
+ */
+
 
 import { createStore } from 'vuex'
 import { testData, testPosts, ColumnProps, PostProps} from '@/mock/testData'
@@ -12,8 +21,6 @@ export interface GlobalDataProps {
   posts: PostProps[];
   user: UserProps;
 }
-console.log('testPosts',testPosts);
-
 
 export const Store = createStore<GlobalDataProps>({
   state: {
@@ -41,8 +48,6 @@ export const Store = createStore<GlobalDataProps>({
       return state.columns.find(column => column.id === id)
     },
     getCurrentPostc:state => (id:number) => {
-      console.log('函数执行');
-      console.log('state',state.posts);
       return state.posts.filter(postc => postc.columnId === id)
     },
     user:state=> state.user,
