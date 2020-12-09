@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-08 13:40:05
+ * @LastEditTime: 2020-12-09 13:40:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ColumnList.vue
@@ -13,7 +13,7 @@
         <div class="card-body text-center">
           <img
             class="rounded-circle card_avatar border-light w-23 my-3"
-            :src="column.avatar"
+            :src="column.avatar.url"
             :alt="column.title"
             srcset=""
           />
@@ -45,6 +45,8 @@ export default defineComponent({
   setup(props) {
     const columnList = computed(() => {
       return props.list.map((column) => {
+        console.log(column);
+
         if (!column.avatar) {
           column.avatar = require("@/assets/column.jpg");
         }

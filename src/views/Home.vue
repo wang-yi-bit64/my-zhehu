@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 10:51:24
- * @LastEditTime: 2020-12-08 13:54:29
+ * @LastEditTime: 2020-12-09 11:48:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\Home.vue
@@ -21,11 +21,13 @@
     </section>
     <h4 class="font-weight-bold text-center">发现精彩</h4>
     <column-list :list="list" />
-    <button class="btn btn-outline-primary mt-2 mb-5 mx-auto btn-block w-25">加载更多</button>
+    <button v-if="list && list.length" class="btn btn-outline-primary mt-2 mb-5 mx-auto btn-block w-25">
+      加载更多
+    </button>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "@/store";
 import ColumnList from "@/components/ColumnList.vue";
@@ -36,8 +38,10 @@ export default defineComponent({
   },
   setup() {
     const store = useStore<GlobalDataProps>();
-    const list = computed(() => store.state.columns);
-
+    const list = computed(() => store.getters.columns);
+    onMounted(() => {
+      store.dispatch("fetchColumns", { pageSize: 3 });
+    });
     return {
       list,
     };
