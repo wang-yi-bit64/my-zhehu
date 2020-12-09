@@ -1,15 +1,18 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 16:29:19
- * @LastEditTime: 2020-12-08 14:18:50
+ * @LastEditTime: 2020-12-09 13:38:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\store\index.ts
  */
 
 
-import { createStore } from 'vuex'
+import { createStore , Commit} from 'vuex'
 import { testData, testPosts} from '@/mock/testData'
+
+import {AxiosRequestConfig} from 'axios'
+import http from '@/utils/request'
 
 interface UserProps {
   isLogin: boolean;
@@ -25,30 +28,54 @@ export interface ColumnProps {
   description: string;
 }
 
-
-
 export interface PostProps {
-  id: number;
+  _id?: number;
   title: string;
-  content: string;
+  excrept?:string;
+  content?: string;
   image?: string;
-  createdAt: string;
+  createdAt?: string;
+  author?: string;
   columnId: number;
+}
+
+export interface GlobalErrorProps {
+  status: boolean;
+  message?: string;
 }
 
 export interface GlobalDataProps {
   columns: ColumnProps[];
   posts: PostProps[];
   user: UserProps;
+  error:GlobalErrorProps;
+  loading: boolean;
+  token: string;
 }
+
+const axyncAndCommit  = async (url:string,mutationsName:string, commit:Commit, config:AxiosRequestConfig = {method: 'get'}, extraData?: any) => {
+  const {data} = await http(url,config)
+  console.log(data);
+  if(extraData) {
+    commit(mutationsName, data,extraData )
+  } else {
+    commit(mutationsName, data )
+  }
+  return data
+}
+
+
 
 const Store = createStore<GlobalDataProps>({
   state: {
+    token: localStorage.getItem('token') || '',
+    loading: false,
     columns:testData,
     posts: testPosts,
     user: {
       isLogin:false
-    }
+    },
+    error: {status :false},
   },
   mutations:{
     login(state) {
@@ -66,10 +93,31 @@ const Store = createStore<GlobalDataProps>({
     },
     createPost(state,newPost) {
       state.posts.push(newPost)
+    },
+    fetchColumns(state, rawData) {
+      console.log('mutations:fetchColumns',rawData);
+      state.columns = rawData.list
+    },
+    fetchColumn(state, rawData) {
+      state.columns = [rawData.data]
+    },
+    fetchPostc(state,rawData) {
+      state.posts = rawData.data.list
+    },
+    fetchPost(state, rowData) {
+      // state.posts.data[rowData.data._id] = rowData.data
     }
   },
   actions:{
-
+    fetchColumns({commit}) {
+      axyncAndCommit('/columns','fetchColumns',commit)
+    },
+    fetchColumn({commit},cid) {
+      axyncAndCommit(`/columns/${cid}`,'fetchColumn',commit)
+    },
+    fetchPost({commit}, cid) {
+      axyncAndCommit(`/columns/${cid}/posts`,'fetchPosts',commit)
+    }
   },
   getters:{
     columns:state => state.columns,
