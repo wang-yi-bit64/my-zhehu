@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-09 13:40:15
+ * @LastEditTime: 2020-12-09 15:14:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ColumnList.vue
@@ -45,8 +45,6 @@ export default defineComponent({
   setup(props) {
     const columnList = computed(() => {
       return props.list.map((column) => {
-        console.log(column);
-
         if (!column.avatar) {
           column.avatar = require("@/assets/column.jpg");
         }

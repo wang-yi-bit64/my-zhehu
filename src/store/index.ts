@@ -1,12 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-12-07 16:29:19
- * @LastEditTime: 2020-12-09 13:38:56
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \my-zhehu\src\store\index.ts
- */
-
 
 import { createStore , Commit} from 'vuex'
 import { testData, testPosts} from '@/mock/testData'
@@ -54,13 +45,16 @@ export interface GlobalDataProps {
 }
 
 const axyncAndCommit  = async (url:string,mutationsName:string, commit:Commit, config:AxiosRequestConfig = {method: 'get'}, extraData?: any) => {
+  commit('setLoading', true)
+  await new Promise(resolve => setTimeout(resolve, 3000))
+
   const {data} = await http(url,config)
-  console.log(data);
   if(extraData) {
     commit(mutationsName, data,extraData )
   } else {
     commit(mutationsName, data )
   }
+  commit('setLoading', false)
   return data
 }
 
@@ -90,6 +84,9 @@ const Store = createStore<GlobalDataProps>({
       state.user = {
         isLogin: false,
       }
+    },
+    setLoading(state, status) {
+      state.loading = status
     },
     createPost(state,newPost) {
       state.posts.push(newPost)
@@ -133,7 +130,6 @@ const Store = createStore<GlobalDataProps>({
       return state.columns.filter(c => c.id > 2).length
     }
   },
-  modules:{
-  }
+  modules:{}
 })
 export default Store
