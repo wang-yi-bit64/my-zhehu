@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 16:09:53
- * @LastEditTime: 2020-12-08 14:03:11
+ * @LastEditTime: 2020-12-09 11:40:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\PostList.vue
@@ -28,7 +28,7 @@
 import { defineComponent, PropType } from "vue";
 import { PostProps } from "@/store";
 export default defineComponent({
-  name: "",
+  name: "PostList",
   props: {
     list: {
       required: true,
