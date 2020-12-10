@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 17:33:56
- * @LastEditTime: 2020-12-09 11:53:22
+ * @LastEditTime: 2020-12-10 17:56:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\request.ts
  */
 import axios, {AxiosRequestConfig, Method, ResponseType} from 'axios'
+import Store from '@/store'
 
 axios.defaults.baseURL = "http://apis.imooc.com/api/"
 
@@ -20,6 +21,8 @@ const http = axios.create({
 })
 
 http.interceptors.request.use(config => {
+  const {commit} = Store
+  commit('setLoading', true)
   if(config.method === 'get' || config.method === 'GET') {
     // get 请求，添加到 url 中
     config.params = {
@@ -41,9 +44,9 @@ http.interceptors.request.use(config => {
 })
 
 http.interceptors.response.use(res => {
+  const {commit} = Store
+  commit('setLoading', false)
   const {data} = res
-  console.log(data);
-
   const {code, msg} = data
   if(code === 0) {
     return data

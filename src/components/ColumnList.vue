@@ -1,26 +1,26 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-09 15:14:19
+ * @LastEditTime: 2020-12-10 16:50:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ColumnList.vue
 -->
 <template>
   <div class="row">
-    <div v-for="column in columnList" :key="column.id" class="col-4 mb-4">
+    <div v-for="column in columnList" :key="column._id" class="col-4 mb-4">
       <div class="card h-100 shadow-sm">
         <div class="card-body text-center">
           <img
             class="rounded-circle card_avatar border-light w-23 my-3"
-            :src="column.avatar.url"
+            :src="column.avatar && column.avatar.url"
             :alt="column.title"
             srcset=""
           />
           <h5 class="card-title">{{ column.title }}</h5>
           <p class="card-text text-left">{{ column.description }}</p>
           <router-link
-            :to="{ name: 'column', params: { id: column.id } }"
+            :to="{ name: 'column', params: { id: column._id } }"
             class="btn btn-outline-primary stretched-link"
             >进入专栏</router-link
           >
@@ -43,10 +43,13 @@ export default defineComponent({
     },
   },
   setup(props) {
+    console.log("ColumnList props.list", props.list);
     const columnList = computed(() => {
       return props.list.map((column) => {
-        if (!column.avatar) {
-          column.avatar = require("@/assets/column.jpg");
+        if (!column.avatar?.url) {
+          if (column.avatar) {
+            column.avatar.url = require("@/assets/column.jpg");
+          }
         }
         return column;
       });

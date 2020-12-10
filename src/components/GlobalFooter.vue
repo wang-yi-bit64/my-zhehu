@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-12-07 10:52:19
+ * @LastEditTime: 2020-12-10 16:32:02
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \my-zhehu\src\components\GlobalFooter.vue
+-->
 <template>
   <footer class="text-center py-4 text-secondary bg-light mt-6">
     <small>

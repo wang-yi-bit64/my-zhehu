@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 10:51:24
- * @LastEditTime: 2020-12-09 11:48:19
+ * @LastEditTime: 2020-12-10 16:45:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\Home.vue
@@ -39,6 +39,7 @@ export default defineComponent({
   setup() {
     const store = useStore<GlobalDataProps>();
     const list = computed(() => store.getters.columns);
+    console.log("computed list", list.value);
     onMounted(() => {
       store.dispatch("fetchColumns", { pageSize: 3 });
     });

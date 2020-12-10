@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-08 11:03:31
- * @LastEditTime: 2020-12-09 11:06:59
+ * @LastEditTime: 2020-12-10 15:23:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\CreateArticle.vue
@@ -54,10 +54,9 @@ export default defineComponent({
         const { columnId } = Store.state.user;
         if (columnId) {
           const newPost: PostProps = {
-            _id: new Date().getTime(),
+            _id: new Date().toLocaleString(),
             title: titleVal.value,
             content: contentVal.value,
-            columnId,
             createdAt: new Date().toLocaleString(),
           };
           Store.commit("createPost", newPost);

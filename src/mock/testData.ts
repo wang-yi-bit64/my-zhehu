@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-07 14:02:52
- * @LastEditTime: 2020-12-09 11:06:27
+ * @LastEditTime: 2020-12-10 16:20:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\mock\testData.ts
@@ -9,7 +9,7 @@
 
 import {ColumnProps, PostProps} from '@/store'
 
-export const testData:ColumnProps[] = [
+export const testData1:ColumnProps[] = [
   // {
   //   id: 1,
   //   title: "test1的专栏",
@@ -53,3 +53,5 @@ export const testPosts:PostProps[] = [
   //   columnId: 2
   // }
 ]
+
+

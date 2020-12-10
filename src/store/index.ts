@@ -1,33 +1,47 @@
 
 import { createStore , Commit} from 'vuex'
-import { testData, testPosts} from '@/mock/testData'
 
 import {AxiosRequestConfig} from 'axios'
 import http from '@/utils/request'
 
-interface UserProps {
+
+export interface ImageProps {
+  _id?:string;
+  url?:string;
+  createdAt?:string;
+  fitUrl?:string
+}
+
+export interface UserProps {
   isLogin: boolean;
-  name?: string;
+  nickName?: string;
   id?: number;
   columnId?: number;
+  column?:string;
+  email?:string;
+  avatar?:ImageProps;
+  description?:string;
+}
+
+interface ListProps<p> {
+  [id:string]:p
 }
 
 export interface ColumnProps {
-  id: number;
+  _id?: string;
   title: string;
-  avatar?: string;
   description: string;
+  avatar?: ImageProps;
 }
 
 export interface PostProps {
-  _id?: number;
+  _id?: string;
   title: string;
   excrept?:string;
   content?: string;
-  image?: string;
+  image?: ImageProps | string;
   createdAt?: string;
-  author?: string;
-  columnId: number;
+  author?: string | UserProps;
 }
 
 export interface GlobalErrorProps {
@@ -36,18 +50,27 @@ export interface GlobalErrorProps {
 }
 
 export interface GlobalDataProps {
-  columns: ColumnProps[];
-  posts: PostProps[];
+  columns:{
+    data: ColumnProps[];
+    currentPage: number;
+    total: number;
+  };
+  posts: {
+    data: PostProps[];
+    loadedColumns: string[],
+    currentPage: number;
+    total: number;
+  };
   user: UserProps;
   error:GlobalErrorProps;
   loading: boolean;
   token: string;
+  currentColumn: ColumnProps | any;
 }
 
 const axyncAndCommit  = async (url:string,mutationsName:string, commit:Commit, config:AxiosRequestConfig = {method: 'get'}, extraData?: any) => {
   commit('setLoading', true)
-  await new Promise(resolve => setTimeout(resolve, 3000))
-
+  // await new Promise(resolve => setTimeout(resolve, 3000))
   const {data} = await http(url,config)
   if(extraData) {
     commit(mutationsName, data,extraData )
@@ -61,11 +84,17 @@ const axyncAndCommit  = async (url:string,mutationsName:string, commit:Commit, c
 
 
 const Store = createStore<GlobalDataProps>({
+  devtools:true,
   state: {
     token: localStorage.getItem('token') || '',
     loading: false,
-    columns:testData,
-    posts: testPosts,
+    columns:{
+      data: [], currentPage: 0, total: 0
+    },
+    currentColumn:{},
+    posts: {
+      data: [], loadedColumns: [],currentPage: 0, total: 0
+    },
     user: {
       isLogin:false
     },
@@ -76,7 +105,7 @@ const Store = createStore<GlobalDataProps>({
       state.user = {
         ...state.user,
         isLogin:true,
-        name: '张三',
+        nickName: '张三',
         columnId:1
       }
     },
@@ -89,17 +118,34 @@ const Store = createStore<GlobalDataProps>({
       state.loading = status
     },
     createPost(state,newPost) {
-      state.posts.push(newPost)
+      state.posts.data[newPost._id] = newPost
     },
     fetchColumns(state, rawData) {
-      console.log('mutations:fetchColumns',rawData);
-      state.columns = rawData.list
+      const {data} = state.columns
+      console.log('fetchColumns',rawData);
+      const {list, count, currentPage } = rawData
+      console.log(list,count,currentPage);
+      state.columns = {
+        data: [ ...data, ...list ],
+        total: count,
+        currentPage: currentPage * 1,
+
+      }
     },
     fetchColumn(state, rawData) {
-      state.columns = [rawData.data]
+      console.log('fetchColumn',state,rawData);
+      state.currentColumn = rawData
     },
     fetchPostc(state,rawData) {
-      state.posts = rawData.data.list
+      console.log('fetchPostc',state,rawData);
+      const {data} = state.posts
+      const {list, count, currentPage } = rawData
+      state.posts = {
+        ...state.posts,
+        data: [ ...data, ...list ],
+        total: count,
+        currentPage: currentPage * 1
+      }
     },
     fetchPost(state, rowData) {
       // state.posts.data[rowData.data._id] = rowData.data
@@ -112,22 +158,25 @@ const Store = createStore<GlobalDataProps>({
     fetchColumn({commit},cid) {
       axyncAndCommit(`/columns/${cid}`,'fetchColumn',commit)
     },
-    fetchPost({commit}, cid) {
-      axyncAndCommit(`/columns/${cid}/posts`,'fetchPosts',commit)
+    fetchPostc({commit}, cid) {
+      axyncAndCommit(`/columns/${cid}/posts`,'fetchPostc',commit)
     }
   },
   getters:{
-    columns:state => state.columns,
-    getCurrentColumn: state => (id: number) => {
-      return state.columns.find(column => column.id === id)
+    columns:state => state.columns.data,
+    posts: state => state.posts.data,
+    currentColumn: state => state.currentColumn,
+    getCurrentColumn: state => (id: string) => {
+      const { data } = state.columns
+      return data.find(column => column._id === id)
     },
-    getCurrentPostc:state => (cid:number) => {
-      return state.posts.filter(postc => postc.columnId === cid)
+    getCurrentPostc:state => (cid:string) => {
+      // return state.posts.filter(postc => postc._id === cid)
     },
     user:state=> state.user,
-    posts:state => state.posts,
     biggColumnLen(state) {
-      return state.columns.filter(c => c.id > 2).length
+      // return state.columns.length
+      // return state.columns.filter(c => c.id > 2).length
     }
   },
   modules:{}
