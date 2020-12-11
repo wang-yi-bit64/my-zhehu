@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 16:09:53
- * @LastEditTime: 2020-12-10 18:17:27
+ * @LastEditTime: 2020-12-11 10:32:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\PostList.vue
@@ -15,9 +15,9 @@
         </h4>
         <div class="row my-3 aligin-items-center">
           <div class="col-4" v-if="post.image">
-            <img class="rounded-lg w-100" :src="post.image && post.image.url" :alt="post.title" />
+            <img class="rounded-lg w-100" :src="post.image.url" :alt="post.title" />
           </div>
-          <p :class="{ 'col-8': post.image }" class="text-muted">{{ post.excerpt }}</p>
+          <p :class="{ 'col-8': post.image }" class="text-muted">{{ post.excrept }}</p>
         </div>
         <span class="text-muted">{{ post.createdAt }}</span>
       </div>

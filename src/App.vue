@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-09 15:04:00
+ * @LastEditTime: 2020-12-11 10:07:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\App.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="container">
     <global-header :user="currentUser" />
-    <h1 v-if="isLoading">加载中</h1>
+    <Loader></Loader>
     <router-view></router-view>
     <GlobalFooter />
   </div>
@@ -21,12 +21,14 @@ import { useStore } from "vuex";
 import "bootstrap/dist/css/bootstrap.min.css";
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalFooter from "@/components/GlobalFooter.vue";
+import Loader from "@/components/Loader.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     GlobalHeader,
     GlobalFooter,
+    Loader,
   },
   setup() {
     const store = useStore();
