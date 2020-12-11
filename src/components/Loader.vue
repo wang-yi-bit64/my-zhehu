@@ -1,23 +1,25 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-10 17:26:16
- * @LastEditTime: 2020-12-11 10:47:46
+ * @LastEditTime: 2020-12-11 11:21:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\Loader.vue
 -->
 <template>
-  <div
-    class="d-flex justify-content-center align-items-center h-100 w-100 loading-container"
-    :style="{ background: background || '' }"
-  >
-    <div class="loading-content">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">{{ text || "loading" }}</span>
+  <teleport to="#back">
+    <div
+      class="d-flex justify-content-center align-items-center h-100 w-100 loading-container"
+      :style="{ background: background || '' }"
+    >
+      <div class="loading-content">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">{{ text || "loading" }}</span>
+        </div>
+        <p v-if="text" class="text-primary small">{{ text }}</p>
       </div>
-      <p v-if="text" class="text-primary small">{{ text }}</p>
     </div>
-  </div>
+  </teleport>
 </template>
 <script lang="ts">
 import { defineComponent, onUnmounted } from "vue";
@@ -35,12 +37,13 @@ export default defineComponent({
       default: "",
     },
   },
-  setup(props, context) {
+  setup() {
     const node = document.createElement("div");
-    onUnmounted(() => {
-      document.removeChild(node);
-    });
     node.id = "back";
+    document.body.appendChild(node);
+    onUnmounted(() => {
+      document.body.removeChild(node);
+    });
   },
 });
 </script>
