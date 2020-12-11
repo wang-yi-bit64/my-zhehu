@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 17:33:56
- * @LastEditTime: 2020-12-11 10:37:42
+ * @LastEditTime: 2020-12-11 16:44:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\request.ts
@@ -38,6 +38,7 @@ http.interceptors.request.use(
         icode: "052079C04189FFD5",
       };
     }
+    console.log(config.data);
     return config;
   },
   (error) => {
