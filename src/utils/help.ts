@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-10 15:43:05
- * @LastEditTime: 2020-12-10 16:03:04
+ * @LastEditTime: 2020-12-11 18:01:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\help.ts
@@ -55,4 +55,3 @@ export const arrToObj = <T extends {_id?:string}>(arr:Array<T>) => {
   }, {} as {[key:string]: T})
 }
 const result = arrToObj(testData)
-console.log(result)

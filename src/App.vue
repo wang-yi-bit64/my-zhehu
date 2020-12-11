@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-11 11:21:25
+ * @LastEditTime: 2020-12-11 18:14:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\App.vue
@@ -16,8 +16,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, onMounted } from "vue";
 import { useStore } from "vuex";
+import { GlobalDataProps } from "@/store";
+import http from "@/utils/request";
 import "bootstrap/dist/css/bootstrap.min.css";
 import GlobalHeader from "@/components/GlobalHeader.vue";
 import GlobalFooter from "@/components/GlobalFooter.vue";
@@ -31,9 +33,17 @@ export default defineComponent({
     Loader,
   },
   setup() {
-    const store = useStore();
+    const store = useStore<GlobalDataProps>();
     const currentUser = computed(() => store.getters.user);
     const isLoading = computed(() => store.state.loading);
+    const token = computed(() => store.state.token);
+
+    onMounted(() => {
+      if (!currentUser.value.isLogin && token.value) {
+        http.defaults.headers.common.Authorization = `Bearer ${token.value}`;
+        store.dispatch("fetchCurrentUser");
+      }
+    });
     return {
       currentUser,
       isLoading,
