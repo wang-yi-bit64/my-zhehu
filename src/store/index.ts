@@ -147,9 +147,18 @@ const Store = createStore<GlobalDataProps>({
     fetchPost(state, rowData) {
       // state.posts.data[rowData.data._id] = rowData.data
     },
+    fetchCurrentUser(state, rawData) {
+      console.log("fetchCurrentUser", rawData);
+      state.user = {
+        isLogin: true,
+        ...rawData,
+      };
+    },
     login(state, rowData) {
-      state.token = rowData.token;
+      const { token } = rowData;
+      state.token = token;
       localStorage.setItem("token", rowData.token);
+      http.defaults.headers.common.Authorization = `Bearer ${token}`;
     },
   },
   actions: {
@@ -162,10 +171,18 @@ const Store = createStore<GlobalDataProps>({
     fetchPostc({ commit }, cid) {
       axyncAndCommit(`/columns/${cid}/posts`, "fetchPostc", commit);
     },
+    fetchCurrentUser({ commit }) {
+      axyncAndCommit("/user/current", "fetchCurrentUser", commit);
+    },
     login({ commit }, payload) {
       return axyncAndCommit(`/user/login`, "login", commit, {
         method: "post",
         data: payload,
+      });
+    },
+    loginAndFetch({ dispatch }, loginData) {
+      return dispatch("login", loginData).then(() => {
+        dispatch("fetchCurrentUser");
       });
     },
   },

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 10:51:16
- * @LastEditTime: 2020-12-11 16:46:04
+ * @LastEditTime: 2020-12-11 17:34:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\Login.vue
@@ -51,11 +51,11 @@ export default defineComponent({
           email: emaidVal.value,
           password: passwordVal.value,
         };
-        store.dispatch("login", payload).then((data) => {
-          console.log(data);
+        store.dispatch("loginAndFetch", payload).then(() => {
+          console.log(router);
+          router.push("/");
         });
         // store.commit("login");
-        // router.push("/");
       }
     };
     return {
