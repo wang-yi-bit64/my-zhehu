@@ -71,7 +71,6 @@ const axyncAndCommit = async (
   config: AxiosRequestConfig = { method: "get" },
   extraData?: any
 ) => {
-  console.log(config);
   commit("setLoading", true);
   // await new Promise(resolve => setTimeout(resolve, 3000))
   const { data } = await http(url, config);
@@ -107,6 +106,14 @@ const Store = createStore<GlobalDataProps>({
     error: { status: false },
   },
   mutations: {
+    login(state) {
+      state.user = {
+        ...state.user,
+        isLogin: true,
+        nickName: "张三",
+        columnId: 1,
+      };
+    },
     logout(state) {
       state.user = {
         isLogin: false,
@@ -147,19 +154,6 @@ const Store = createStore<GlobalDataProps>({
     fetchPost(state, rowData) {
       // state.posts.data[rowData.data._id] = rowData.data
     },
-    fetchCurrentUser(state, rawData) {
-      console.log("fetchCurrentUser", rawData);
-      state.user = {
-        isLogin: true,
-        ...rawData,
-      };
-    },
-    login(state, rowData) {
-      const { token } = rowData;
-      state.token = token;
-      localStorage.setItem("token", rowData.token);
-      http.defaults.headers.common.Authorization = `Bearer ${token}`;
-    },
   },
   actions: {
     fetchColumns({ commit }) {
@@ -170,20 +164,6 @@ const Store = createStore<GlobalDataProps>({
     },
     fetchPostc({ commit }, cid) {
       axyncAndCommit(`/columns/${cid}/posts`, "fetchPostc", commit);
-    },
-    fetchCurrentUser({ commit }) {
-      axyncAndCommit("/user/current", "fetchCurrentUser", commit);
-    },
-    login({ commit }, payload) {
-      return axyncAndCommit(`/user/login`, "login", commit, {
-        method: "post",
-        data: payload,
-      });
-    },
-    loginAndFetch({ dispatch }, loginData) {
-      return dispatch("login", loginData).then(() => {
-        dispatch("fetchCurrentUser");
-      });
     },
   },
   getters: {
