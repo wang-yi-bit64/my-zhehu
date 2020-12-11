@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-10 17:26:16
- * @LastEditTime: 2020-12-11 10:20:01
+ * @LastEditTime: 2020-12-11 10:47:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\Loader.vue
 -->
 <template>
   <div
-    class="d-flex justify-content-center aligin-items-center h-100 w-100 loading-container"
+    class="d-flex justify-content-center align-items-center h-100 w-100 loading-container"
     :style="{ background: background || '' }"
   >
     <div class="loading-content">
@@ -56,5 +56,8 @@ export default defineComponent({
 }
 .loading-content {
   text-align: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 </style>

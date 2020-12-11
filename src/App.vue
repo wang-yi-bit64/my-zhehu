@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-11 10:07:15
+ * @LastEditTime: 2020-12-11 10:49:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\App.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="container">
     <global-header :user="currentUser" />
-    <Loader></Loader>
+    <Loader text="加载中"></Loader>
     <router-view></router-view>
     <GlobalFooter />
   </div>
