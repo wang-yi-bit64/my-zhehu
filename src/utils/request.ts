@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 17:33:56
- * @LastEditTime: 2020-12-11 18:15:32
+ * @LastEditTime: 2020-12-11 18:31:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\request.ts
@@ -21,8 +21,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
-    const { commit } = Store;
-    commit("setLoading", true);
+    Store.commit("setLoading", true);
     if (config.method === "get" || config.method === "GET") {
       // get 请求，添加到 url 中
       config.params = {
@@ -47,8 +46,7 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   (res) => {
-    const { commit } = Store;
-    commit("setLoading", false);
+    Store.commit("setLoading", false);
     const { data } = res;
     const { code } = data;
     if (code === 0) {
@@ -57,7 +55,13 @@ http.interceptors.response.use(
       return Promise.reject(res);
     }
   },
-  (error) => {
+  (e) => {
+    const { error } = e.responese.data;
+    Store.commit("setLoading", false);
+    Store.commit("setError", {
+      status: false,
+      message: error,
+    });
     console.error(error);
     return Promise.reject(error);
   }

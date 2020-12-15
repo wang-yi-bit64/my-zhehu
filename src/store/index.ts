@@ -114,6 +114,9 @@ const Store = createStore<GlobalDataProps>({
     setLoading(state, status) {
       state.loading = status;
     },
+    setError(state, e: GlobalErrorProps) {
+      state.error = e;
+    },
     createPost(state, newPost) {
       state.posts.data[newPost._id] = newPost;
     },

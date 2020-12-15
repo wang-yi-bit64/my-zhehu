@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-10 17:26:16
- * @LastEditTime: 2020-12-11 11:21:48
+ * @LastEditTime: 2020-12-15 15:33:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\Loader.vue
@@ -22,7 +22,9 @@
   </teleport>
 </template>
 <script lang="ts">
-import { defineComponent, onUnmounted } from "vue";
+import { defineComponent } from "vue";
+import useDOMCreate from "@/hooks/useDOMCreate";
+
 export default defineComponent({
   name: "Loader",
   props: {
@@ -38,12 +40,7 @@ export default defineComponent({
     },
   },
   setup() {
-    const node = document.createElement("div");
-    node.id = "back";
-    document.body.appendChild(node);
-    onUnmounted(() => {
-      document.body.removeChild(node);
-    });
+    useDOMCreate("back");
   },
 });
 </script>
