@@ -73,7 +73,9 @@ const axyncAndCommit = async (
 ) => {
   commit("setLoading", true);
   // await new Promise(resolve => setTimeout(resolve, 3000))
-  const { data } = await http(url, config);
+  const res = await http(url, config);
+  console.log(res);
+  const { data } = res;
   if (extraData) {
     commit(mutationsName, data, extraData);
   } else {
@@ -109,7 +111,10 @@ const Store = createStore<GlobalDataProps>({
     logout(state) {
       state.user = {
         isLogin: false,
+        nickName: "",
       };
+      state.token = "";
+      localStorage.removeItem("token");
     },
     setLoading(state, status) {
       state.loading = status;

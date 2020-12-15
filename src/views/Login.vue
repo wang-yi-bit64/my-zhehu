@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-07 10:51:16
- * @LastEditTime: 2020-12-11 17:34:50
+ * @LastEditTime: 2020-12-15 16:13:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\views\Login.vue
@@ -45,7 +45,6 @@ export default defineComponent({
     const passwordRules: RulesProps = [{ type: "required", message: "密码不能为空" }];
 
     const onFormSubmit = (result: boolean) => {
-      console.log("result", result);
       if (result) {
         const payload = {
           email: emaidVal.value,
@@ -55,7 +54,6 @@ export default defineComponent({
           console.log(router);
           router.push("/");
         });
-        // store.commit("login");
       }
     };
     return {

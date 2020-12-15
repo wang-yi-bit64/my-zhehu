@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-11 17:36:17
+ * @LastEditTime: 2020-12-15 16:17:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\GlobalHeader.vue
@@ -27,7 +27,7 @@
             <a href="#" class="dropdown-item">编辑资料</a>
           </dropdown-item>
           <dropdown-item>
-            <a href="#" class="dropdown-item">退出登录</a>
+            <a href="#" class="dropdown-item" @click.prevent="logout">退出登录</a>
           </dropdown-item>
         </dropdown>
       </li>
@@ -43,6 +43,9 @@ import { UserProps } from "@/store";
 
 import { defineComponent, PropType } from "vue";
 
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 export default defineComponent({
   name: "GlobalHeader",
   components: {
@@ -56,7 +59,15 @@ export default defineComponent({
     },
   },
   setup() {
-    return {};
+    const Store = useStore();
+    const Router = useRouter();
+    const logout = () => {
+      Store.commit("logout");
+      Router.replace("/");
+    };
+    return {
+      logout,
+    };
   },
 });
 </script>

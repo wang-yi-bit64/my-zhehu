@@ -1,13 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 17:33:56
- * @LastEditTime: 2020-12-11 18:31:26
+ * @LastEditTime: 2020-12-15 16:47:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\request.ts
  */
 import axios from "axios";
 import Store from "@/store";
+import createMessage from "@/components/createMessage";
 
 axios.defaults.baseURL = "http://apis.imooc.com/api/";
 
@@ -40,6 +41,7 @@ http.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log("request", error);
     return Promise.reject(error);
   }
 );
@@ -52,17 +54,19 @@ http.interceptors.response.use(
     if (code === 0) {
       return data;
     } else {
+      console.log("res error", res);
       return Promise.reject(res);
     }
   },
-  (e) => {
-    const { error } = e.responese.data;
+  (error) => {
     Store.commit("setLoading", false);
+    const { data } = error.response;
+    console.log("error", data);
     Store.commit("setError", {
       status: false,
-      message: error,
+      message: data.error,
     });
-    console.error(error);
+    createMessage(data.error, "error", 2000);
     return Promise.reject(error);
   }
 );

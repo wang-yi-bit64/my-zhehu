@@ -1,18 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-14 10:36:20
- * @LastEditTime: 2020-12-15 15:32:55
+ * @LastEditTime: 2020-12-15 16:51:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\Message.vue
 -->
 <template>
   <teleport to="#message">
-    <div class="alert message-info" :class="classObject" v-if="isVisible">
-      <button type="button" class="close" @click.prevent="hide">
-        <span>{{ message }}</span>
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="alert message-info fixed-top w-50 mx-auto d-flex justify-content-between mt-2" :class="classObject">
+      <span>{{ message }}</span>
+      <button type="button" class="btn-close" @click.prevent="hide" aria-label="Close"></button>
     </div>
   </teleport>
 </template>
@@ -41,7 +39,7 @@ export default defineComponent({
     const isVisible = ref(true);
     const classObject = {
       "alert-success": props.type === "success",
-      "alert-error": props.type === "error",
+      "alert-danger": props.type === "error",
       "alert-primary": props.type === "default",
     };
     const hide = () => {
