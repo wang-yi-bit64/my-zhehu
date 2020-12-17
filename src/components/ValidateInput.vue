@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-04 11:21:04
- * @LastEditTime: 2020-12-08 11:28:50
+ * @LastEditTime: 2020-12-16 10:26:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\ValidateInput.vue
@@ -13,8 +13,7 @@
       class="form-control"
       v-bind="$attrs"
       :class="{ 'is-invalid': inputRef.error }"
-      :value="inputRef.val"
-      @input="updateValue"
+      v-model="inputRef.val"
       @blur="validInput"
     />
     <textarea
@@ -22,8 +21,7 @@
       class="form-control"
       v-bind="$attrs"
       :class="{ 'is-invalid': inputRef.error }"
-      :value="inputRef.val"
-      @input="updateValue"
+      v-model="inputRef.val"
       @blur="validInput"
     />
     <span v-if="inputRef.error" class="invalid-feedback">
@@ -33,14 +31,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive } from "vue";
+import { defineComponent, onMounted, PropType, reactive, computed } from "vue";
 import { emitter } from "./ValidateForm.vue";
 
 const emailReg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 interface RuleProp {
-  type: "required" | "email";
+  type: "required" | "email" | "custom";
   message: string;
+  validator?: () => boolean;
 }
 export type TagType = "input" | "textarea";
 
@@ -59,15 +58,13 @@ export default defineComponent({
   inheritAttrs: false,
   setup(props, context) {
     const inputRef = reactive({
-      val: props.modelValue || "",
+      val: computed({
+        get: () => props.modelValue || "",
+        set: (val) => context.emit("update", val),
+      }),
       error: false,
       message: "",
     });
-    const updateValue = (e: KeyboardEvent) => {
-      const targetValue = (e.target as HTMLInputElement).value;
-      inputRef.val = targetValue;
-      context.emit("update:modelValue", targetValue);
-    };
     const validInput = () => {
       if (props.rules) {
         const allPassed = props.rules.every((rule) => {
@@ -80,6 +77,8 @@ export default defineComponent({
             case "email":
               passed = emailReg.test(inputRef.val);
               break;
+            case "custom":
+              passed = rule.validator ? rule.validator() : true;
           }
           return passed;
         });
@@ -94,7 +93,6 @@ export default defineComponent({
     return {
       inputRef,
       validInput,
-      updateValue,
     };
   },
 });

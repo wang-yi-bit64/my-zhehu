@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-15 16:17:21
+ * @LastEditTime: 2020-12-16 10:05:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\GlobalHeader.vue
@@ -14,7 +14,7 @@
         <router-link to="/login" class="btn btn-outline-light my-2">登录</router-link>
       </li>
       <li class="list-inline-item">
-        <router-link to="/login" class="btn btn-outline-light my-2">注册</router-link>
+        <router-link to="/signup" class="btn btn-outline-light my-2">注册</router-link>
       </li>
     </ul>
     <ul v-else class="list-inline mb-0">

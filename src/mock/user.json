@@ -1,0 +1,10 @@
+{
+  "code": 0,
+  "data": {
+    "_id": "5fd97cbfb558154f0392ba5d",
+    "email": "zhangsan@qq.com",
+    "nickName": "zhangsan",
+    "column": "5fd97cbfb558154f0392ba5e"
+  },
+  "msg": "请求成功"
+}

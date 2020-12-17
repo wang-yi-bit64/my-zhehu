@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 17:33:56
- * @LastEditTime: 2020-12-15 16:47:16
+ * @LastEditTime: 2020-12-16 09:54:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\request.ts
@@ -60,13 +60,15 @@ http.interceptors.response.use(
   },
   (error) => {
     Store.commit("setLoading", false);
-    const { data } = error.response;
-    console.log("error", data);
-    Store.commit("setError", {
-      status: false,
-      message: data.error,
-    });
-    createMessage(data.error, "error", 2000);
+    if (error && error.response) {
+      const { data } = error.response;
+      console.log("error", data);
+      Store.commit("setError", {
+        status: false,
+        message: data.error,
+      });
+      createMessage(data.error, "error", 2000);
+    }
     return Promise.reject(error);
   }
 );
