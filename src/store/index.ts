@@ -74,7 +74,7 @@ const axyncAndCommit = async (
   commit("setLoading", true);
   // await new Promise(resolve => setTimeout(resolve, 3000))
   const res = await http(url, config);
-  console.log(res);
+  console.log("axyncAndCommit", url, "<br>", res);
   const { data } = res;
   if (extraData) {
     commit(mutationsName, data, extraData);
@@ -127,9 +127,9 @@ const Store = createStore<GlobalDataProps>({
     },
     fetchColumns(state, rawData) {
       const { data } = state.columns;
-      console.log("fetchColumns", rawData);
+      // console.log("fetchColumns", rawData);
       const { list, count, currentPage } = rawData;
-      console.log(list, count, currentPage);
+      // console.log(list, count, currentPage);
       state.columns = {
         data: [...data, ...list],
         total: count,
@@ -137,7 +137,7 @@ const Store = createStore<GlobalDataProps>({
       };
     },
     fetchColumn(state, rawData) {
-      console.log("fetchColumn", state, rawData);
+      // console.log("fetchColumn", state, rawData);
       state.currentColumn = rawData;
     },
     fetchPostc(state, rawData) {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 17:33:56
- * @LastEditTime: 2020-12-16 09:54:56
+ * @LastEditTime: 2020-12-17 18:05:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\utils\request.ts
@@ -31,6 +31,7 @@ http.interceptors.request.use(
       };
     }
     if (config.data instanceof FormData) {
+      console.log(config.data);
       config.data.append("icode", "052079C04189FFD5");
     } else {
       config.data = {
