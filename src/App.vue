@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-24 15:27:26
- * @LastEditTime: 2020-12-11 18:14:20
+ * @LastEditTime: 2020-12-23 17:52:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\App.vue
@@ -36,14 +36,14 @@ export default defineComponent({
     const store = useStore<GlobalDataProps>();
     const currentUser = computed(() => store.getters.user);
     const isLoading = computed(() => store.state.loading);
-    const token = computed(() => store.state.token);
+    // const token = computed(() => store.state.token);
 
-    onMounted(() => {
-      if (!currentUser.value.isLogin && token.value) {
-        http.defaults.headers.common.Authorization = `Bearer ${token.value}`;
-        store.dispatch("fetchCurrentUser");
-      }
-    });
+    // onMounted(() => {
+    //   if (!currentUser.value.isLogin && token.value) {
+    //     http.defaults.headers.common.Authorization = `Bearer ${token.value}`;
+    //     store.dispatch("fetchCurrentUser");
+    //   }
+    // });
     return {
       currentUser,
       isLoading,

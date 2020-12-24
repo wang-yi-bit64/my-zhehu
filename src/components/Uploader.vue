@@ -1,19 +1,27 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-17 13:53:30
- * @LastEditTime: 2020-12-23 16:46:23
+ * @LastEditTime: 2020-12-23 17:33:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-zhehu\src\components\Uploader.vue
 -->
 <template>
   <div class="file-upload">
-    <button class="btn btn-primary" @click="griggerUploader">
-      <span v-if="fileStatus === 'ready'">点击上传</span>
-      <span v-if="fileStatus === 'loading'">正在上传...</span>
-      <span v-if="fileStatus === 'success'">上传成功</span>
-      <span v-if="fileStatus === 'error'">上传失败</span>
-    </button>
+    <div class="file-upload-container" @click="griggerUploader">
+      <slot name="defalt">
+        <button class="btn btn-primary">点击上传</button>
+      </slot>
+      <slot name="loading" v-if="fileStatus === 'loading'">
+        <button class="btn btn-primary">正在上传...</button>
+      </slot>
+      <slot v-if="fileStatus === 'success'" name="uploaded" :uploadData="uploadData">
+        <button class="btn btn-primary">上传成功</button>
+      </slot>
+      <slot v-if="fileStatus === 'error'" name="error">
+        <button class="btn btn-primary">上传失败</button>
+      </slot>
+    </div>
     <input type="file" class="file-input d-none" ref="fileInput" @change="handlerFileChange" />
   </div>
 </template>
@@ -33,9 +41,11 @@ export default defineComponent({
       type: Function as PropType<CheckFunction>,
     },
   },
+  emits: ["file-uploaded", "file-uploaded-error"],
   setup(props, context) {
     const fileInput = ref<null | HTMLInputElement>(null);
     const fileStatus = ref<UploadStatus>("ready");
+    const uploadData = ref();
     const griggerUploader = () => {
       if (fileInput.value) {
         fileInput.value.click();
@@ -64,12 +74,15 @@ export default defineComponent({
             },
           })
           .then((resp) => {
-            console.log(resp);
+            console.log("fileStatus success", resp);
             fileStatus.value = "success";
+            uploadData.value = resp;
+            context.emit("file-uploaded", resp);
           })
           .catch((err) => {
             console.log(err);
             fileStatus.value = "error";
+            context.emit("file-uploaded-error", { err });
           })
           .finally(() => {
             if (fileInput.value) {
@@ -83,6 +96,7 @@ export default defineComponent({
       fileStatus,
       griggerUploader,
       handlerFileChange,
+      uploadData,
     };
   },
 });

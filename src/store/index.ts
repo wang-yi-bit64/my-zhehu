@@ -1,6 +1,12 @@
 import { createStore, Commit } from "vuex";
 import { AxiosRequestConfig } from "axios";
 import http from "@/utils/request";
+
+export interface ResponstType<P = unknown> {
+  code: number;
+  msg: string;
+  data: P;
+}
 export interface ImageProps {
   _id?: string;
   url?: string;
@@ -168,16 +174,16 @@ const Store = createStore<GlobalDataProps>({
   },
   actions: {
     fetchColumns({ commit }) {
-      axyncAndCommit("/columns", "fetchColumns", commit);
+      return axyncAndCommit("/columns", "fetchColumns", commit);
     },
     fetchColumn({ commit }, cid) {
-      axyncAndCommit(`/columns/${cid}`, "fetchColumn", commit);
+      return axyncAndCommit(`/columns/${cid}`, "fetchColumn", commit);
     },
     fetchPostc({ commit }, cid) {
-      axyncAndCommit(`/columns/${cid}/posts`, "fetchPostc", commit);
+      return axyncAndCommit(`/columns/${cid}/posts`, "fetchPostc", commit);
     },
     fetchCurrentUser({ commit }) {
-      axyncAndCommit("/user/current", "fetchCurrentUser", commit);
+      return axyncAndCommit("/user/current", "fetchCurrentUser", commit);
     },
     login({ commit }, payload) {
       return axyncAndCommit(`/user/login`, "login", commit, {
